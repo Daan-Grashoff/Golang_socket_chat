@@ -1,12 +1,11 @@
-package main
+package src
 
 import (
 	"fmt"
 	"net"
-	"os"
 )
 
-func main() {
+func StartServer() {
 	service := ":1201"
 	tcpAddr, err := net.ResolveTCPAddr("tcp4", service)
 	checkError(err)
@@ -16,16 +15,14 @@ func main() {
 	sendC := make(chan []byte)
 	var receiverList [](chan []byte)
 
-	go func(){
+	go func() {
 		for message := range sendC {
 			fmt.Print(string(message))
-			for _, receiver := range receiverList{
+			for _, receiver := range receiverList {
 				receiver <- message
 			}
 		}
 	}()
-
-
 
 	for {
 		conn, err := listener.Accept()
@@ -43,28 +40,22 @@ func handleClient(conn net.Conn, sendC chan []byte, receiver chan []byte) {
 	defer conn.Close()
 	var buf [512]byte
 
-	go func(){
-		for message := range receiver{
+	go func() {
+		for message := range receiver {
 			_, err2 := conn.Write(message)
 			if err2 != nil {
 				return
 			}
 		}
 	}()
-	
+
 	for {
 		n, err := conn.Read(buf[0:])
-		if err != nil{
+		if err != nil {
 			return
 		}
 		// write the n bytes read
 		sendC <- buf[0:n]
-		
-	}
-}
-func checkError(err error) {
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Fatal error: %s", err.Error())
-		os.Exit(1)
+
 	}
 }

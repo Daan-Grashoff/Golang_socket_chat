@@ -1,4 +1,4 @@
-package main
+package src
 
 import (
 	"bufio"
@@ -7,8 +7,8 @@ import (
 	"os"
 )
 
-func main() {
-	service := "145.24.240.41:1201"
+func StartClient() {
+	service := ":1201"
 	tcpAddr, err := net.ResolveTCPAddr("tcp4", service)
 	checkError(err)
 	conn, err := net.DialTCP("tcp", nil, tcpAddr)
