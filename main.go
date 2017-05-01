@@ -10,10 +10,10 @@ func main() {
 	fmt.Println("choose")
 	var result string
 	fmt.Scanln(&result)
-	switch {
-	case result == "s":
+	switch result {
+	case "s":
 		src.StartServer()
-	case result == "c":
+	case "c":
 		src.StartClient()
 
 	}
