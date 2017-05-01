@@ -1,4 +1,4 @@
-# Golang_socket_chat
+# Golang socket chat
 
 ## Synopsis
 
