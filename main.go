@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/Daan-Grashoff/Golang_socket_chat/src"
+	"./src"
 )
 
 func main() {
-	fmt.Println("choose")
+	fmt.Println("choose s|c")
 	var result string
 	fmt.Scanln(&result)
 	switch result {
